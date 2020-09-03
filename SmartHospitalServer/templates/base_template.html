@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Smart Hospital</title>
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+    </head>
+    <body>
+        {% block img-file %}
+        {% endblock %}
+        <header class="nav-bar">
+            <div class='logo'>
+                {% if user.is_authenticated == False %}
+                    <h2><a href="{% url 'homepage' %}"><img src="{% static 'hospital_thumbnail.png' %}" alt="SmartHospital" /></a></h2>
+                {% else %}
+                    {% if is_patient == True %}
+                        <h2><a href="{% url 'patient:homepage' %}"><img src="{% static 'hospital_thumbnail.png' %}" alt="SmartHospital" /></a></h2>
+                    {% else %}
+                        <h2><a href="{% url 'staff:homepage' %}"><img src="{% static 'hospital_thumbnail.png' %}" alt="SmartHospital" /></a></h2>
+                    {% endif %}
+                {% endif %}
+            </div>
+            <nav>
+                <div class='nav-right'>
+                    {% if user.is_authenticated %}
+                        <div class='nav-right-title'>
+                            <h2>Welcome {{user.first_name}} {{user.last_name}}</h2>
+                        </div>
+                        {% if user.is_superuser %}
+                            <div class='nav-right-3buttons'>
+                                <a href="{% url 'homepage' %}"><h2 class='nav-button'>Homepage</h2></a>
+                                <a href="{% url 'admin:login' %}"><h2 class='nav-button'>Admin</h2></h2></a>
+                                <form action="{% url 'accounts:logout' %}" method="post">
+                                    {% csrf_token %}
+                                    <input class='nav-button' type="submit" value='Logout'>
+                                </form>
+                            </div>
+                        {% else %}
+                            <div class='nav-right-2buttons'>
+                                <a href="{% url 'homepage' %}"><h2 class='nav-button'>Homepage</h2></a>
+                                <form action="{% url 'accounts:logout' %}" method="post">
+                                    {% csrf_token %}
+                                    <input class='nav-button' type="submit" value='Logout'>
+                                </form>
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        <div class='nav-right-title'>
+                            <h2>Login/Signup to continue</h2>
+                        </div>
+                        <div class='nav-right-3buttons'>
+                            <a href="{% url 'accounts:login' %}"><h2 class='nav-button'>Login</h2></a>
+                            <a href="{% url 'accounts:signup_patient' %}"><h2 class='nav-button'>Signup as Patient</h2></a>
+                            <a href="{% url 'accounts:signup_staff' %}"><h2 class='nav-button'>Signup as Staff</h2></a>
+                        </div>
+                    {% endif %}
+                </div>
+            </nav>
+        </header>
+        <div class="site-content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+</html>
