@@ -13,4 +13,6 @@ urlpatterns = [
     re_path(r'^accounts/', include('accounts.urls')),
     re_path(r'^patient/', include('patient.urls')),
     re_path(r'^staff/', include('staff.urls')),
+    re_path(r'^administration/', include('administration.urls')),
+    re_path(r'^ehr/', include('EHR.urls')),
 ]

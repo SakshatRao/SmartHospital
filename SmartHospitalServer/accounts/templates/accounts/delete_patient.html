@@ -1,0 +1,20 @@
+{% extends 'patient/patient_base_template.html' %}
+
+{% block content %}
+    <div class='errorlist'>
+        <h2>Are you sure? This decision is irreversible.</h2>
+    </div>
+    <div class='user-in'>
+        <h1>Confirm Username and Password before deleting account</h1>
+        <form class='form-site' action="{% url 'accounts:delete_patient' %}" method="post">
+            {% csrf_token %}
+            {{user_form}}
+            <div class='form-submit'>
+                <input type="submit" value='Delete Account'>
+            </div>
+            {% if request.GET.next  %}
+                <input type="hidden" name='next' value="{{ request.GET.next }}">
+            {% endif %}
+        </form>
+    </div>
+{% endblock %}

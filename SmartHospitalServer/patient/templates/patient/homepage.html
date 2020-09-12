@@ -2,4 +2,15 @@
 
 {% block content %}
     <h1>Patient Dashboard</h1>
+    <div class='homepage-view'>
+        <a href="{% url 'ehr:view-ehr' %}">
+            <div class='card'>
+                <div class='card-content'>
+                    <div style="background-image: url(/static/view_ehr.png);">
+                    </div>
+                    <h2>View Electronic Health Record</h2>
+                </div>
+            </div>
+        </a>
+    </div>
 {% endblock %}

@@ -2,4 +2,15 @@
 
 {% block content %}
     <h1>Staff Dashboard</h1>
+    <div class='homepage-view'>
+        <a href="{% url 'ehr:add-entry' %}">
+            <div class='card'>
+                <div class='card-content'>
+                    <div style="background-image: url(/static/add_entry.jpg);">
+                    </div>
+                    <h2>Add Electronic Health Record entry</h2>
+                </div>
+            </div>
+        </a>
+    </div>
 {% endblock %}

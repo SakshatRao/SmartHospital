@@ -6,12 +6,12 @@ from . import models
 class User_Form(UserCreationForm):
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
+        fields = ['first_name', 'last_name', 'username', 'email', 'password1', 'password2']
 
 class Staff_Form(forms.ModelForm):
     class Meta:
         model = models.Staff
-        fields = ['DOB', 'age', 'occupation']
+        fields = ['DOB', 'age', 'gender', 'contact', 'street_address', 'pin_code', 'occupation']
         widgets = {
             'DOB': forms.DateInput(attrs = {'type': 'date'})
         }
@@ -19,7 +19,7 @@ class Staff_Form(forms.ModelForm):
 class Patient_Form(forms.ModelForm):
     class Meta:
         model = models.Patient
-        fields = ['DOB', 'age', 'blood_type', 'contact', 'address']
+        fields = ['DOB', 'age', 'gender', 'contact', 'street_address', 'pin_code', 'blood_type', 'room_number']
         widgets = {
             'DOB': forms.DateInput(attrs = {'type': 'date'})
         }

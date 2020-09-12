@@ -1,0 +1,30 @@
+{% extends 'patient/patient_base_template.html' %}
+
+{% block content %}
+    <div class='user-in'>
+        <h1>Edit Patient Details</h1>
+        <form class='form-site' action="{% url 'accounts:edit_patient' %}" method="post">
+            {% csrf_token %}
+            <div class='sub-form'>
+                <h3>User Details</h3>
+                {{user_form}}
+            </div>
+            <br class='sub-form-gap'>
+            <div class='sub-form'>
+                <h3>Personal Details</h3>
+                {{patient_form}}
+            </div>
+            <div class='form-submit'>
+                <input type="submit" value="Edit">
+            </div>
+        </form>
+    </div>
+    <div class='other-options'>
+        <h3>Other options?</h3>
+        <div class='other-links'>
+            <a href="{% url 'patient:homepage' %}">Cancel</a>
+            <a href="{% url 'accounts:delete_patient' %}">Delete Profile</a>
+        </div>
+    </div>
+    <script src='/static/automations.js'></script>
+{% endblock %}

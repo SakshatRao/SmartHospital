@@ -1,0 +1,70 @@
+{% extends 'administration/administration_base_template.html' %}
+
+{% block content %}
+    <h1>Hospital Statistics</h1>
+    <div class='stats-view'>
+        
+        <div class='stats-left-view'>
+            
+            <div class='stats-card'>
+                <div class='gender-ratio'>
+                    <h2>Gender Ratio</h2>
+                    <iframe src="/static/gender_ratio.html" width=100% height=100%>
+                        Error loading visualization
+                    </iframe>
+                </div>
+            </div>
+            
+            <div class='stats-card'>
+                <div class='monthly-billing'>
+                    <h2>Monthly Billing</h2>
+                    <iframe src="/static/monthly_billing.html" width=100% height=100%'>
+                        Error loading visualization
+                    </iframe>
+                </div>
+            </div>
+
+            <div class='stats-card'>
+                <div class='daily-billing'>
+                    <h2>Average Daily Billing</h2>
+                    <iframe src="/static/daily_billing.html" width=100% height=100%>
+                        Error loading visualization
+                    </iframe>
+                </div>
+            </div>
+
+        </div>
+
+        <div class='stats-right-view'>
+            
+            <div class='stats-card'>
+                <div class='room-occupancy'>
+                    <h2>Hospital Room Occupancy</h2>
+                    <iframe src="/static/room_occupancy.html" width=100% height=100%>
+                        Error loading visualization
+                    </iframe>
+                </div>
+            </div>
+
+            <div class='stats-card'>
+                <div class='age-histogram'>
+                    <h2>Patient Age Distribution</h2>
+                    <iframe src="/static/age_histogram.html" width=100% height=100%>
+                        Error loading visualization
+                    </iframe>
+                </div>
+            </div>
+
+            <div class='stats-card'>
+                <div class='patient-geomap'>
+                    <h2>Patient Geomap</h2>
+                    <iframe src="/static/patient_geomap.html" width=100% height=100%>
+                        Error loading visualization
+                    </iframe>
+                </div>
+            </div>
+
+        </div>
+    
+    </div>
+{% endblock %}

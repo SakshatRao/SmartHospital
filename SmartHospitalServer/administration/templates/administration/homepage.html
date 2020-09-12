@@ -1,0 +1,16 @@
+{% extends 'administration/administration_base_template.html' %}
+
+{% block content %}
+    <h1>Administration Dashboard</h1>
+    <div class='homepage-view'>
+        <a href="{% url 'administration:stats' %}">
+            <div class='card'>
+                <div class='card-content'>
+                    <div style="background-image: url(/static/stats.jpg);">
+                    </div>
+                    <h2>View Hospital Statistics</h2>
+                </div>
+            </div>
+        </a>
+    </div>
+{% endblock %}

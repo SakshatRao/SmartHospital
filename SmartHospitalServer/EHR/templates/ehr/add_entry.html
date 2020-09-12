@@ -1,0 +1,71 @@
+{% extends 'staff/staff_base_template.html' %}
+
+{% block content %}
+    <script language="javascript">
+        var x = 0;
+
+        function choose_form(x) {
+            if(x == 0) {
+                document.getElementById("presc").style.display="initial";
+                document.getElementById("bill").style.display="none";
+                document.getElementById("medhist").style.display="none";
+            }
+
+            else if(x == 1) {
+                document.getElementById("presc").style.display="none";
+                document.getElementById("bill").style.display="initial";
+                document.getElementById("medhist").style.display="none"; 
+            }
+
+            else  {
+                document.getElementById("presc").style.display="none";
+                document.getElementById("bill").style.display="none";
+                document.getElementById("medhist").style.display="initial"; 
+            }
+        }
+    </script>
+
+    <div class='choose-form'>
+        <h1>Add an EHR entry</h1>
+
+        <div class='choice'>
+            <input class='choice-button' type="button" onclick="choose_form(0)" value="Prescription">
+            <input class='choice-button' type="button" onclick="choose_form(1)" value="Billing">
+            <input class='choice-button' type="button" onclick="choose_form(2)" value="Medical History">
+        </div>
+
+        <div id='presc'>
+            <form class='form-site' action="{% url 'ehr:add-entry' %}" method="post">
+                <h2>Prescription Entry</h2>
+                {% csrf_token %}
+                {{presc_form}}
+                <input type="submit" name="" id="" style="display: none;">
+                <div class='form-submit'>
+                    <input type="submit" value='Add entry' name='presc'>
+                </div>
+            </form>
+        </div>
+
+        <div id='bill' style="display: none;">
+            <form class='form-site' action="{% url 'ehr:add-entry' %}" method="post">
+                <h2>Billing Entry</h2>
+                {% csrf_token %}
+                {{bill_form}}
+                <div class='form-submit'>
+                    <input type="submit" value='Add entry' name='bill'>
+                </div>
+            </form>
+        </div>
+
+        <div id='medhist' style="display: none;">
+            <form class='form-site' action="{% url 'ehr:add-entry' %}" method="post">
+                <h2>Medical History Entry</h2>
+                {% csrf_token %}
+                {{medhist_form}}
+                <div class='form-submit'>
+                    <input type="submit" value='Add entry' name='medhist'>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
