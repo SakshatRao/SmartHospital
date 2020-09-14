@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import user_passes_test
 
 def is_patient(request):
     try:
-        is_patient = request.user.patient
+        is_patient = request.user.patient.all_patient
         return True
     except:
         return False
@@ -10,7 +10,7 @@ def is_patient(request):
 def patient_access():
     def check_patient(user):
         try:
-            is_patient = user.patient
+            is_patient = user.patient.all_patient
             return True
         except:
             return False
@@ -19,7 +19,7 @@ def patient_access():
 def staff_access():
     def check_staff(user):
         try:
-            is_staff = user.staff
+            is_staff = user.staff.all_staff
             return True
         except:
             return False

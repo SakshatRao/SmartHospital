@@ -12,7 +12,8 @@ def add_entry_view(request):
             presc_form = forms.Prescription_entry_Form(request.POST)
             if(presc_form.is_valid()):
                 entry = presc_form.save(commit = False)
-                entry.staff = request.user.staff
+                entry.all_patient = entry.patient.all_patient
+                entry.staff = request.user.staff.all_staff
                 entry.save()
                 return redirect('staff:homepage')
             else:
@@ -22,7 +23,8 @@ def add_entry_view(request):
             bill_form = forms.Bill_entry_Form(request.POST)
             if(bill_form.is_valid()):
                 entry = bill_form.save(commit = False)
-                entry.staff = request.user.staff
+                entry.all_patient = entry.patient.all_patient
+                entry.staff = request.user.staff.all_staff
                 entry.save()
                 return redirect('staff:homepage')
             else:
@@ -32,7 +34,8 @@ def add_entry_view(request):
             medhist_form = forms.MedHistory_entry_Form(request.POST)
             if(medhist_form.is_valid()):
                 entry = medhist_form.save(commit = False)
-                entry.staff = request.user.staff
+                entry.all_patient = entry.patient.all_patient
+                entry.staff = request.user.staff.all_staff
                 entry.save()
                 return redirect('staff:homepage')
             else:
@@ -50,9 +53,9 @@ def add_entry_view(request):
 
 @patient_access()
 def view_ehr_view(request):
-    presc_entries = list(request.user.patient.prescription_entry_set.all().order_by('-date', 'medication'))
-    bill_entries = list(request.user.patient.bill_entry_set.all().order_by('-date', 'service'))
-    medhist_entries = list(request.user.patient.medhistory_entry_set.all().order_by('-date', 'event'))
+    presc_entries = list(request.user.patient.all_patient.prescription_entry_set.all().order_by('-date', 'medication'))
+    bill_entries = list(request.user.patient.all_patient.bill_entry_set.all().order_by('-date', 'service'))
+    medhist_entries = list(request.user.patient.all_patient.medhistory_entry_set.all().order_by('-date', 'event'))
     http_dict = http_dict_func(request)
     http_dict['presc_entries'] = presc_entries
     http_dict['bill_entries'] = bill_entries

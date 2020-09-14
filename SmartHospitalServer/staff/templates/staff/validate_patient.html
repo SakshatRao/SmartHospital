@@ -1,0 +1,33 @@
+{% extends 'staff/staff_base_template.html' %}
+
+{% block content %}
+    <div>
+        <h1>Validate Patients</h1>
+    </div>
+    <div class='validate'>
+        <form action="{% url 'staff:validate_patient' %}" method="post">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Username</th>
+                    <th>Room Number</th>
+                    <th>Validation</th>
+                </tr>
+                {% for patient in unvalid_patients %}
+                    <tr>
+                        <td>{{patient}}</td>
+                        <td>{{patient.user.username}}</td>
+                        <td>{{patient.room_number}}</td>
+                        <td>
+                            <input type="checkbox" name="{{patient.user.username}}">
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <div class='form-submit'>
+                <input type="submit" value='Submit'>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -3,6 +3,7 @@
 {% block content %}
     <h1>Staff Dashboard</h1>
     <div class='homepage-view'>
+        
         <a href="{% url 'ehr:add-entry' %}">
             <div class='card'>
                 <div class='card-content'>
@@ -12,5 +13,26 @@
                 </div>
             </div>
         </a>
+        
+        <a href="{% url 'staff:validate_patient' %}">
+            <div class='card'>
+                <div class='card-content'>
+                    <div style="background-image: url(/static/validate.jpg);">
+                    </div>
+                    <h2>Validate Patients</h2>
+                </div>
+            </div>
+        </a>
+        
+        <a href="{% url 'staff:remove_patient' %}">
+            <div class='card'>
+                <div class='card-content'>
+                    <div style="background-image: url(/static/remove.jpeg);">
+                    </div>
+                    <h2>Remove Patients</h2>
+                </div>
+            </div>
+        </a>
+
     </div>
 {% endblock %}

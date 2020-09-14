@@ -3,8 +3,11 @@ from django.http import HttpResponse
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, decorators
 from django.db import IntegrityError
-from .models import Staff
+
+import datetime
+
 from . import forms
+from .models import Staff, Patient, All_Staff, All_Patient
 from utils.access import http_dict_func, patient_access, staff_access
 
 # Create your views here.
@@ -16,11 +19,19 @@ def signup_staff_view(request):
             user = user_form.save()
             staff = staff_form.save(commit = False)
             staff.user = user
-            staff.staff_name = user.first_name + ' ' + user.last_name
             staff.staff_email = user.email
+            staff.is_validated = False
             try:
                 staff.save()
                 login(request, user)
+                existing_staff = All_Staff.objects.filter(staff_email = user.email)
+                if(len(existing_staff) == 0):
+                    new_staff = All_Staff()
+                    new_staff.staff_email = user.email
+                else:
+                    new_staff = existing_staff[0]
+                new_staff.staff_name = user.first_name + ' ' + user.last_name
+                new_staff.save()
                 return redirect('staff:homepage')
             except IntegrityError:
                 user.delete()
@@ -43,9 +54,20 @@ def signup_patient_view(request):
             patient.user = user
             patient.patient_name = user.first_name + ' ' + user.last_name
             patient.patient_email = user.email
+            patient.is_validated = False
             try:
                 patient.save()
                 login(request, user)
+                existing_patient = All_Patient.objects.filter(patient_email = user.email)
+                if(len(existing_patient) == 0):
+                    new_patient = All_Patient()
+                    new_patient.patient_email = user.email
+                else:
+                    new_patient = existing_patient[0]
+                new_patient.admission_date = datetime.date.today()
+                new_patient.discharge_date = None
+                new_patient.patient_name = user.first_name + ' ' + user.last_name
+                new_patient.save()
                 return redirect('patient:homepage')
             except IntegrityError:
                 user.delete()
@@ -126,29 +148,3 @@ def edit_staff(request):
     http_dict['user_form'] = user_form
     http_dict['staff_form'] = staff_form
     return render(request, 'accounts/edit_staff.html', http_dict)
-
-@patient_access()
-def delete_patient(request):
-    if(request.method == 'POST'):
-        user_form = AuthenticationForm(data = request.POST)
-        if(user_form.is_valid()):
-            request.user.delete()
-            return redirect('homepage')
-    else:
-        user_form = AuthenticationForm()
-    http_dict = http_dict_func(request)
-    http_dict['user_form'] = user_form
-    return render(request, 'accounts/delete_patient.html', http_dict)
-
-@staff_access()
-def delete_staff(request):
-    if(request.method == 'POST'):
-        user_form = AuthenticationForm(data = request.POST)
-        if(user_form.is_valid()):
-            request.user.delete()
-            return redirect('homepage')
-    else:
-        user_form = AuthenticationForm()
-    http_dict = http_dict_func(request)
-    http_dict['user_form'] = user_form
-    return render(request, 'accounts/delete_staff.html', http_dict)

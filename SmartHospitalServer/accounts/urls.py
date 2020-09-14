@@ -12,6 +12,4 @@ urlpatterns = [
     url(r'^logout/$', views.logout_view, name = 'logout'),
     url(r'^edit_patient/$', views.edit_patient, name = 'edit_patient'),
     url(r'^edit_staff/$', views.edit_staff, name = 'edit_staff'),
-    url(r'^delete_patient/$', views.delete_patient, name = 'delete_patient'),
-    url(r'^delete_staff/$', views.delete_staff, name = 'delete_staff'),
 ]

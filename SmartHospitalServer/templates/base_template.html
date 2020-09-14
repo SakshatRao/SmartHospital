@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <title>Smart Hospital</title>
-        <link rel="stylesheet" href="{% static 'styles1.css' %}">
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
     </head>
     <body>
         {% block img-file %}
@@ -29,15 +29,13 @@
                                 </form>
                             </div>
                         {% else %}
-                            <div class='nav-right-4buttons'>
+                            <div class='nav-right-3buttons'>
                                 {% if is_patient == True %}
                                     <a href="{% url 'patient:homepage' %}"><h2 class='nav-button'>Dashboard</h2></a>
                                     <a href="{% url 'accounts:edit_patient' %}"><h2 class='nav-button'>Edit Profile</h2></a>
-                                    <a href="{% url 'accounts:delete_patient' %}"><h2 class='nav-button'>Delete Profile</h2></a>
                                 {% else %}
                                     <a href="{% url 'staff:homepage' %}"><h2 class='nav-button'>Dashboard</h2></a>
                                     <a href="{% url 'accounts:edit_staff' %}"><h2 class='nav-button'>Edit Profile</h2></a>
-                                    <a href="{% url 'accounts:delete_staff' %}"><h2 class='nav-button'>Delete Profile</h2></a>
                                 {% endif %}
                                 <form action="{% url 'accounts:logout' %}" method="post">
                                     {% csrf_token %}

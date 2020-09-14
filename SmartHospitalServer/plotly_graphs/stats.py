@@ -4,6 +4,7 @@ import plotly.express as px
 import numpy as np
 import pandas as pd
 import json
+from datetime import date, datetime, timedelta
 
 with open('./assets/wards.geojson', 'r') as load_file:
     wards = json.load(load_file)
@@ -219,3 +220,42 @@ def age_histogram(patient_db):
     )
     fig = go.Figure(data = data, layout = layout)
     pyo.plot(fig, filename = './assets/age_histogram.html', auto_open = False, output_type = 'file', include_plotlyjs = True)
+
+def admission_discharge_rate(all_patient_db):
+    patient_df = pd.DataFrame(all_patient_db.values("id", 'admission_date', 'discharge_date'))
+    patient_df['admission_date'] = patient_df['admission_date'].astype('datetime64')
+    patient_df['discharge_date'] = patient_df['discharge_date'].astype('datetime64')
+
+    today_date = date.today()
+    last_month_dates = [today_date + timedelta(-x) for x in range(30)]
+    all_dates = pd.DataFrame.from_dict({'date': last_month_dates})
+    all_dates['date'] = all_dates['date'].astype('datetime64')
+    admission = patient_df.groupby('admission_date')['id'].aggregate('count').reset_index(drop = False)
+    discharge = patient_df.groupby('discharge_date')['id'].aggregate('count').reset_index(drop = False)
+    #%%
+    admission = all_dates.merge(admission, how = 'left', left_on = 'date', right_on = 'admission_date')[['date', 'id']].fillna(0)
+    discharge = all_dates.merge(discharge, how = 'left', left_on = 'date', right_on = 'discharge_date')[['date', 'id']].fillna(0)
+    #%%
+    data = [
+        go.Scatter(
+            x = admission['date'], y = admission['id'],
+            name = 'Admission', fill = 'tozerox',
+            mode = 'lines', line = dict(color = 'blue'),
+            hovertemplate = 'Admissions: %{y}<br>%{x}<extra></extra>'
+        ),
+        go.Scatter(
+            x = discharge['date'], y = discharge['id'],
+            name = 'Discharge', fill = 'tozerox',
+            mode = 'lines', line = dict(color = 'red'),
+            hovertemplate = 'Discharges: %{y}<br>%{x}<extra></extra>'
+        ),
+    ]
+    layout = go.Layout(
+        paper_bgcolor = '#114B5F', plot_bgcolor = '#114B5F',
+        xaxis = dict(title = 'Timeline', color = 'white', showgrid = False),
+        yaxis = dict(title = 'Count', color = 'white', showgrid = False),
+        legend = dict(font = dict(color = 'white')),
+        margin = dict(t=15, b=15, l=0, r=0)
+    )
+    fig = go.Figure(data = data, layout = layout)
+    pyo.plot(fig, filename = './assets/admission_discharge_rate.html', auto_open = False, output_type = 'file', include_plotlyjs = True)
