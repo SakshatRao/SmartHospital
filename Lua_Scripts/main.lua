@@ -11,7 +11,7 @@ m:on("connect", function(m)
 	pub_timer:alarm(5000, tmr.ALARM_AUTO, function()
         
         -- Generating random temperature values
-        temperature = math.random(37, 39)
+        temperature = math.random() * 1.3 + 36.5
 
         -- Publishing under topic '/mcu/status'
         m:publish("/mcu/status", tostring(temperature), 0, 0, function(m)
