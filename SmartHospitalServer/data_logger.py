@@ -8,13 +8,14 @@ MQTT_PORT = 1883
 def on_connect(client, userdata, flags, rc):
     print("\nConnected with result code " + str(rc) + "\n")
     client.subscribe("/mcu/status")
-    print("Subscibed to /mcu/status")
+    print("Subscibed to /mcu/status\n")
 
 # When data under subscribed topic is received
 def on_message(client, userdata, msg):
     str_msg = msg.payload.decode('ascii')
     data_values = str_msg.split('_')
-    print(f'Temperature: {float(data_values[0]):.2f}\n\n')
+    print(f'Room no.: {int(data_values[0])}')
+    print(f'Temperature (in celcius): {float(data_values[1]):.2f}')
 
 client = mqtt.Client(client_id="data-logger")
 client.on_connect = on_connect
