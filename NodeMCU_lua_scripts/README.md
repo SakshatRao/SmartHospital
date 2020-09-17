@@ -1,0 +1,36 @@
+# Instructions for uploading lua scripts to python
+
+1. Ensure /dev/ttyUSB0 has user permissions:
+
+    ```python
+    sudo su
+    chown <username> /dev/ttyUSB0
+    exit
+    ```
+
+2. Switch to Python2
+
+    ```python
+    conda activate python2
+    ```
+
+3. (Optional): Upload NodeMCU firmware
+
+    ```python
+    esptool.py --port=/dev/ttyUSB0 write_flash -fm=dio -fs=32m 0x00000 nodemcu-master-(...).bin
+    ```
+
+4. Upload lua scripts to NodeMCU
+
+    (Optional): Clearing serial port
+
+    ```python
+    miniterm.py /dev/ttyUSB0 115200
+    CNTRL+]
+    ```
+
+    Uploading of lua scripts
+
+    ```python
+    python luatool.py --port /dev/ttyUSB0 --src <file>.lua --dest <file>.lua --verbose --baud 115200
+    ```
