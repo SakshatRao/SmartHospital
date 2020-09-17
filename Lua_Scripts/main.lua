@@ -10,11 +10,12 @@ m:on("connect", function(m)
 	local pub_timer = tmr.create()
 	pub_timer:alarm(5000, tmr.ALARM_AUTO, function()
         
-        -- Generating random temperature values
+        -- Generating random room no. and temperature values
+        room_num = math.random(50)
         temperature = math.random() * 1.3 + 36.5
 
         -- Publishing under topic '/mcu/status'
-        m:publish("/mcu/status", tostring(temperature), 0, 0, function(m)
+        m:publish("/mcu/status", tostring(room_num) .. '_' .. tostring(temperature), 0, 0, function(m)
             print("Sent data")
         end)
 
