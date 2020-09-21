@@ -26,7 +26,7 @@ class Patient(models.Model):
     street_address = models.TextField(max_length = 200, default = '')
     pin_code = models.CharField(max_length = 6, default = '')
     blood_type = models.CharField(choices = [(x, x) for x in ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']], default = 'A+', max_length = 5)
-    room_number = models.IntegerField(null = True, blank = True)
+    room_number = models.IntegerField(null = True, blank = True, unique = True)
     is_validated = models.BooleanField(default = False)
     def __str__(self):
         return self.user.first_name + ' ' + self.user.last_name

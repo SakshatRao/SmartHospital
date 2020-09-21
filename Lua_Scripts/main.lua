@@ -11,7 +11,7 @@ m:on("connect", function(m)
 	pub_timer:alarm(5000, tmr.ALARM_AUTO, function()
         
         -- Generating random room no. and temperature values
-        room_num = math.random(50)
+        room_num = math.random(10)
         temperature = math.random() * 1.3 + 36.5
 
         -- Publishing under topic '/mcu/status'
