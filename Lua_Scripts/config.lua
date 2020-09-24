@@ -1,3 +1,5 @@
+ROOM_NUMBER = 4
+
 WIFI_SSID = "SAGRLRVR"
 WIFI_PASS = "sakudaku8b29"
 

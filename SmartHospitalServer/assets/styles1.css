@@ -1,0 +1,571 @@
+/*
+    Color Scheme:
+        Light Blue      #90BEDE
+        Dark Blue       #114B5F
+*/
+
+body{
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    font-family: Ubuntu;
+    margin: 0px;
+}
+
+h1, h2, h3, h4, h5{
+    font-weight: normal;
+    margin: 0;
+}
+
+a, a:hover, a:visited{
+    color: #fff;
+    text-decoration: none;
+}
+
+.nav-bar {
+    background-color: #114B5F;
+    max-height: 100px;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    padding: 10px;
+    max-height: 70px;
+}
+
+.nav-right {
+    text-align: right;
+}
+
+.nav-right-title {
+    color: white;
+    font-size: larger;
+}
+
+.nav-right-2buttons {
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 10px;
+}
+
+.nav-right-3buttons {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    column-gap: 10px;
+}
+
+.nav-right-4buttons {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    column-gap: 10px;
+}
+
+h2.nav-button {
+    background-color: #90BEDE;
+    text-align: center;
+    margin-top: 5px;
+    padding: 5px;
+    font-family: Ubuntu;
+    font-size: 1.2em;
+    color: black;
+    cursor: pointer;
+    border: none;
+    border-radius: 50px;
+}
+
+input.nav-button {
+    text-align: center;
+    background-color: #90BEDE;
+    margin-top: 5px;
+    padding: 5px;
+    border: none;
+    color: black;
+    font-family: Ubuntu;
+    font-size: 1.2em;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 50px;
+}
+
+.site-content {
+    margin: 100px auto;
+    width: 60%;
+    background-color: #90BEDE;
+    opacity: 0.9;
+    text-align: center;
+    padding: 40px 20px 40px 20px;
+}
+
+.site-content h1 {
+    font-size: 3em;
+    font-family: 'impact';
+    color: black;
+}
+
+.form-site {
+    border: 3px solid black;
+    margin: 50px auto;
+    width: 70%;
+    padding: 30px 0px 30px 0px;
+}
+
+.form-site input, textarea, select {
+    display: block;
+    margin: 10px auto;
+    margin-top: 0px;
+}
+
+.form-site textarea {
+    height: 75px;
+}
+
+.form-submit input, .return-button a{
+    border: none;
+    background-color: #114B5F;
+    color: white;
+    padding: 15px;
+    margin-top: 30px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.return-button {
+    margin: 40px auto 0px auto;
+    width: 50%;
+}
+
+.other-options h3 {
+    color: black;
+    font-size: x-large;
+}
+
+.other-links {
+    width: 50%;
+    margin: 10px auto;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    column-gap: 10px;
+}
+
+.other-links a {
+    background-color: #114B5F;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 30px;
+}
+
+.helptext {
+    display: none;
+}
+
+.sub-form h3 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.sub-form input, select, textarea {
+    margin-top: 0px;
+}
+
+.sub-form br {
+    display: none;
+}
+
+.form-site br {
+    margin-bottom: 35px;
+}
+
+.errorlist {
+    color: red;
+    list-style-type: none;
+    margin: 20px auto;
+    width: 90%;
+    padding: 5px;
+    border: 3px solid red;
+}
+
+.unauth {
+    display: grid;
+    grid-template-columns: auto auto;
+    row-gap: 40px;
+    margin-top: 60px;
+}
+
+.unauth a {
+    border: 2px solid #114B5F;
+}
+
+.unauth a div h2 {
+    padding: 20px;
+    background-color: #114B5F;
+    color: white;
+}
+
+.unauth a div h3 {
+    height: 100%;
+    padding: 20px;
+    color: black;
+}
+
+.auth {
+    display: grid;
+    grid-template-columns: auto auto;
+    row-gap: 40px;
+    margin-top: 60px;
+}
+
+.auth a {
+    border: 2px solid #114B5F;
+}
+
+.auth a div h2 {
+    padding: 20px;
+    background-color: #114B5F;
+    color: white;
+}
+
+.auth a div h3 {
+    height: 100%;
+    padding: 20px;
+    color: black;
+}
+
+.text-content {
+    margin-top: 50px;
+}
+
+.text-table {
+    display: grid;
+    grid-template-columns: auto auto;
+    row-gap: 15px;
+}
+
+.text-table h3 {
+    font-size: 1.5em;
+    color: black;
+    margin: auto;
+    margin-left: 0px;
+    padding: 0px;
+}
+
+.text-table div.with-img {
+    background-image: url(/static/Icons/arrow.png);
+    background-repeat: no-repeat;
+    background-size: 90% 100%;
+    margin: 0px auto;
+    width: 90%;
+    padding: 10px 15px 10px 0px;
+}
+
+.text-table div.with-img h2 {
+    color: white;
+    font-size: 1em;
+    padding: 15px;
+    text-align: left;
+    margin-right: 50%;
+}
+
+.text-table div.without-img {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.text-table div.without-img h2 {
+    color: black;
+    font-size: 0.8em;
+    padding: 15px;
+    text-align: left;
+}
+
+.text {
+    width: 75%;
+    margin: 10px auto;
+    font-size: 1.3em;
+    font-family: 'impact';
+    padding: 0px 20px 0px 20px;
+}
+
+.choice {
+    padding-top: 30px;
+}
+
+.choice-button {
+    border: none;
+    background-color: #114B5F;
+    border-radius: 50px;
+    color: white;
+    padding: 15px;
+    cursor: pointer;
+}
+
+.form-site h2 {
+    font-size: 2em;
+    padding-bottom: 30px;
+}
+
+.error-msg {
+    margin: 20px 0px 0px 0px;
+}
+
+.ehr-view {
+    display: grid;
+    grid-template-columns: 70% 30%;
+    margin-top: 20px;
+}
+
+.presc-view {
+    display: grid;
+    grid-template-columns: auto;
+    row-gap: 10px;
+    background-color: #114B5F;
+    color: white;
+    margin-left: 10px;
+    border: 2px solid black;
+}
+
+.presc-view h2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.presc {
+    border: 2px solid black;
+    background-color: yellow;
+    margin: 10px;
+    color: black;
+}
+
+.presc-top {
+    border-bottom: 2px solid black;
+    font-size: 1.1em;
+}
+
+.presc-bottom h3,h4 {
+    font-size: 1em;
+}
+
+.non-presc-view {
+    display: grid;
+    grid-template-rows: auto auto;
+    row-gap: 10px;
+}
+
+.bill-view, .medhist-view {
+    border: 2px solid black;
+    background-color:#114B5F;
+    color: white;
+}
+
+.bill {
+    display: grid;
+    grid-template-columns: 70% auto;
+    border: 2px solid black;
+    margin: 15px;
+    background-color: #90BEDE;
+    color: black;
+}
+
+.bill-left div{
+    border-bottom: 2px solid black;
+}
+
+.bill-right {
+    background-color: lightsalmon;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 2px solid black;
+}
+
+.medhist-bullets {
+    list-style-type: disclosure-closed;
+    font-size: 2em;
+    margin-left: 10px;
+    text-align: left;
+}
+
+.medhist {
+    background-color: #90BEDE;
+    font-size: 1em;
+    margin: 20px 10px;
+    border: 2px solid black;
+}
+
+.medhist-text {
+    display: grid;
+    grid-template-rows: auto auto;
+}
+
+.medhist-text-top {
+    display: grid;
+    grid-template-columns: 30% auto;
+    padding: 0px 10px;
+}
+
+.medhist-text-top h2{
+    font-size: 1em;
+    border-right: 2px solid black;
+    padding: 2px;
+    color: black;
+}
+
+.medhist-text-top h3 {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    font-size: 0.7em;
+    padding: 2px 10px;
+    color: black;
+}
+
+.medhist-text-bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.6em;
+    border-top: 2px solid black;
+    padding: 5px 0px;
+    color: black;
+}
+
+.homepage-view {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    column-gap: 10px;
+    row-gap: 10px;
+    padding-top: 20px;
+    width: 80%;
+    margin: auto;
+}
+
+.card {
+    background-color: #114B5F;
+}
+
+.card:hover {
+    background-color: khaki;
+    color: black;
+}
+
+.card-content {
+    padding: 10px;
+    display: grid;
+    grid-template-rows: 80% 20%;
+    border: 2px solid black;
+}
+
+.card-content div {
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    height: 250px;
+}
+
+.card-content h2 {
+    padding-top: 10px;
+}
+
+.stats-view {
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 10px;
+    margin-top: 10px;
+}
+
+.stats-left-view, .stats-right-view {
+    display: grid;
+    grid-template-columns: auto;
+    row-gap: 10px;
+}
+
+.stats-card {
+    padding: 10px;
+}
+
+.stats-card div {
+    display: grid;
+    grid-template-rows: 10% 90%;
+    width: 100%;
+    height: 100%;
+    background-color: #114B5F;
+    border: 2px solid black;
+}
+
+.stats-card .room-occupancy {
+    min-height: 250px;
+}
+
+.stats-card .monthly-billing {
+    min-height: 300px;
+}
+
+.stats-card .gender-ratio {
+    min-height: 300px;
+}
+
+.stats-card .daily-billing {
+    min-height: 350px;
+}
+
+.stats-card .patient-geomap {
+    min-height: 350px;
+}
+
+.stats-card .admission-discharge-rate {
+    min-height: 300px
+}
+
+.stats-card iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.stats-card h2 {
+    color: white;
+}
+
+.validate {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.validate form {
+    width: 100%;
+}
+
+.validate form table {
+    margin: 40px 0px 5px 0px;
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid black;
+    font-size: 1.2em;
+}
+
+.validate form table th, td {
+    border: 2px solid black;
+    padding: 10px 0px 10px 0px;
+}
+
+.validate form table th {
+    background-color: #114B5F;
+    color: white;
+}
+
+#container {
+    display: grid;
+    grid-template-columns: auto;
+    row-gap: 20px;
+}
+
+.status-card {
+    background-color: #114B5F;
+    color: white;
+    max-height: 400px;
+    padding-bottom: 10px;
+}
+
+.status-card h2 {
+    font-size: 4ex;
+    margin-bottom: 25px;
+}

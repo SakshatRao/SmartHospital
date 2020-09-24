@@ -8,7 +8,7 @@ import datetime
 from django.contrib.auth.models import User
 from accounts.models import Patient, Staff, All_Patient, All_Staff
 from EHR.models import Bill_entry
-from plotly_graphs import stats
+from plotly_graphs import administration_stats as stats
 
 @admin_access()
 def homepage_view(request):

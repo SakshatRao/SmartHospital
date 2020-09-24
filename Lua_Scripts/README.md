@@ -1,6 +1,6 @@
 # Instructions for uploading lua scripts to python
 
-1. Ensure /dev/ttyUSB0 has user permissions
+1. (Optional) Ensure /dev/ttyUSB0 has user permissions
 
     ```python
     sudo su
