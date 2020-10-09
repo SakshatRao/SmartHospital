@@ -26,7 +26,7 @@ var myChart = new Chart(ctx, {
         scales: {
             yAxes: [{
                 ticks: {
-                    min: 35,
+                    min: 30,
                     max: 40,
                     fontColor: 'white',
                     fontSize: 15
