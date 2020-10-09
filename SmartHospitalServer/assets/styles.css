@@ -569,3 +569,46 @@ input.nav-button {
     font-size: 4ex;
     margin-bottom: 25px;
 }
+
+.health_status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.health_status table {
+    margin: 30px auto;
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid black;
+}
+
+.health_status table th, td {
+    border: 2px solid black;
+}
+
+.health_status table th {
+    background-color: #114B5F;
+    color: white;
+    padding: 10px;
+}
+
+.status-details input {
+    background-color: #114B5F;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    cursor: -moz-grabbing;
+}
+
+.low {
+    background-color: #3B7BCE;
+}
+
+.medium {
+    background-color: #90BEDE;
+}
+
+.high {
+    background-color: #D75B69;
+}

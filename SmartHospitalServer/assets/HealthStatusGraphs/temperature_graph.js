@@ -67,6 +67,8 @@ var myChart = new Chart(ctx, {
 setInterval(function () {
     $.ajax({
         url: $temperatureGraph.data("url"),
+        type: 'GET',
+        data: {patient_id: document.getElementById('patient-id').value},
         success: function (data) {
             myChart.data.datasets[0].data = data.temperatures;
             myChart.data.labels = data.timeline;

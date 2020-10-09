@@ -1,0 +1,38 @@
+{% extends 'staff/staff_base_template.html' %}
+
+{% block content %}
+
+    <div>
+        <h1>View Patient Health Summary</h1>
+    </div>
+    <div class='health_status'>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Room Number</th>
+                <th>Temperature</th>
+                <th>Recorded Time</th>
+                <th>Details</th>
+            </tr>
+            {% for status in health_status %}
+                <tr>
+                    <td>{{ status.name }}</td>
+                    <td>{{ status.room_number }}</td>
+                    <td class='temp'>{{ status.temperature }}</td>
+                    <td>{{ status.recorded_time }}</td>
+                    <td>
+                        <form action="{% url 'staff:view_indiv_health_status' %}" method="POST">
+                            {% csrf_token %}
+                            <div class='status-details'>
+                                <input type="submit" value='View Details' name="ID_{{ status.patient_id }}">
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="/static/HealthStatusGraphs/health_table_color.js"></script>
+{% endblock %}
