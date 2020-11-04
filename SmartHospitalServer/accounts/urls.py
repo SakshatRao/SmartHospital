@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.urls import re_path
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 from . import views
@@ -6,10 +6,10 @@ from . import views
 app_name = 'accounts'
 
 urlpatterns = [
-    url(r'^signup_patient/$', views.signup_patient_view, name = 'signup_patient'),
-    url(r'^signup_staff/$', views.signup_staff_view, name = 'signup_staff'),
-    url(r'^login/$', views.login_view, name = 'login'),
-    url(r'^logout/$', views.logout_view, name = 'logout'),
-    url(r'^edit_patient/$', views.edit_patient, name = 'edit_patient'),
-    url(r'^edit_staff/$', views.edit_staff, name = 'edit_staff'),
+    re_path(r'^signup_patient/$', views.signup_patient_view, name = 'signup_patient'),
+    re_path(r'^signup_staff/$', views.signup_staff_view, name = 'signup_staff'),
+    re_path(r'^login/$', views.login_view, name = 'login'),
+    re_path(r'^logout/$', views.logout_view, name = 'logout'),
+    re_path(r'^edit_patient/$', views.edit_patient, name = 'edit_patient'),
+    re_path(r'^edit_staff/$', views.edit_staff, name = 'edit_staff'),
 ]
