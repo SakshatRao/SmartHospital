@@ -23,10 +23,11 @@ def on_message(client, userdata, msg):
     str_msg = msg.payload.decode('ascii')
     data_values = str_msg.split('_')
     recv_data = {
-        'temperature': float(data_values[1]),
-        'room_number': int(data_values[0]),
+        'temperature': float(data_values[1].strip()),
+        'room_number': int(data_values[0].strip()),
         'recorded_time': datetime.today().strftime("%Y-%m-%d %H:%M:%S")
     }
+    print(recv_data)
 
     cur.execute("SELECT * FROM accounts_patient WHERE room_number = ?", [recv_data['room_number']])
     patient_info = cur.fetchall()

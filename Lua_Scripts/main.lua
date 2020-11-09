@@ -5,20 +5,6 @@ m:lwt("/lwt", "Last wish", 0, 0)
 -- When connection is established
 m:on("connect", function(m)
     print ("\nConnected established!")
-    
-    -- Timer for sending data regularly
-	local pub_timer = tmr.create()
-	pub_timer:alarm(5 * 1000, tmr.ALARM_AUTO, function()
-        
-        -- Generating random temperature values
-        temperature = math.random() * 1.3 + 36.5
-
-        -- Publishing under topic '/mcu/status'
-        m:publish("/mcu/status", tostring(ROOM_NUMBER) .. '_' .. tostring(temperature), 0, 0, function(m)
-            print("Sent data")
-        end)
-
-	end)
 end)
 
 -- When connection is lost
@@ -26,5 +12,13 @@ m:on("offline", function(m)
 	print ("\n\nDisconnected from broker")
 	print("Heap: ", node.heap())
 end)
+
+-- Setting up UART communication with Arduino
+uart.setup(0, 115200, 8, 0, 1)
+uart.on("data", '\r', function(data)
+    m:publish("/mcu/status", tostring(ROOM_NUMBER) .. '_' .. tostring(data), 0, 0, function(m)
+        print("Sent data - " .. tostring(data))
+    end)
+end, 0)
 
 m:connect(MQTT_HOST, MQTT_PORT, 0, 1)
