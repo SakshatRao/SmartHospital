@@ -40,6 +40,7 @@ void calibrate() {
   }
   extr1 = s_avg;
 
+  // Indicating first calibration
   digitalWrite(led_buzzer_pin, HIGH);
   delay(100);
   digitalWrite(led_buzzer_pin, LOW);
@@ -63,19 +64,27 @@ void calibrate() {
   }
   extr2 = s_avg;
 
+  // Indicating second calibration
   digitalWrite(led_buzzer_pin, HIGH);
   delay(100);
   digitalWrite(led_buzzer_pin, LOW);
   delay(10000);
   thresh = (extr1 + extr2) / 2.0;
 
-  delay(5000);
+  // Indicating device is ready
+  digitalWrite(led_buzzer_pin, HIGH);
+  delay(100);
+  digitalWrite(led_buzzer_pin, LOW);
 }
 
 void setup() {
   pinMode(pushbutton_pin, INPUT);
   pinMode(IR_recv_pin, INPUT);
   pinMode(led_buzzer_pin, OUTPUT);
+  
+  ///*
+  Serial.begin(9600);
+  //*/
 
   detected = 0;
   alerted = false;
@@ -86,6 +95,16 @@ void setup() {
 void loop() {
   int ir_val = analogRead(IR_recv_pin);
   s = a * ir_val + (1 - a) * s;
+
+  ///*
+  Serial.print(s);
+  Serial.print("\t");
+  Serial.print(thresh);
+  Serial.print("\t");
+  Serial.print(extr1);
+  Serial.print("\t");
+  Serial.println(extr2);
+  //*/
   
   if(detected == 0)
   {
