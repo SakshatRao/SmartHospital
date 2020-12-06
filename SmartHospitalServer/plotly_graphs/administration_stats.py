@@ -27,6 +27,7 @@ ward_map = {
 }
 
 def room_occupancy(patient_db):
+    print("Room Occupancy")
     avail_rooms = np.arange(1, 51)
     occupied_rooms = np.unique([x.room_number for x in patient_db if (x.room_number is not None) & (x.room_number in avail_rooms)])
 

@@ -21,20 +21,18 @@ void setup()
 {
   Wire.begin();
   sw.begin(115200);
-  // Serial.begin(9600);
+  Serial.begin(9600);
 
-  //scan for temperature until a sensor is found. Scan for both addresses 0x48 and 0x49
   while(!tempSensor.scanAvailableSensors()){
     delay(5000);
   }
-
-  tempSensor.begin();   // set continuos mode, active mode
+  tempSensor.begin();
 }
 
 void loop()
 {
-  float temp = tempSensor.getTemperature(); // read temperature for every 100ms
-  sw.print(temp, 2);
-  // Serial.println(temp, 2);
+  float temp = tempSensor.getTemperature();
+  //sw.print(temp, 2);
+  Serial.println(temp);
   delay(5000);
 }

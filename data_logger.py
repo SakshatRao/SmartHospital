@@ -23,12 +23,14 @@ def on_message(client, userdata, msg):
     str_msg = msg.payload.decode('ascii')
     data_values = str_msg.split('_')
     recv_data = {
-        'temperature': float(data_values[1].strip()),
         'room_number': int(data_values[0].strip()),
+        'temperature': float(data_values[1].strip()) / 10,
+        'spO2': float(data_values[2].strip()) / 10,
+        'bpm': float(data_values[3].strip()) / 10,
         'recorded_time': datetime.today().strftime("%Y-%m-%d %H:%M:%S")
     }
     print(recv_data)
-
+    
     cur.execute("SELECT * FROM accounts_patient WHERE room_number = ?", [recv_data['room_number']])
     patient_info = cur.fetchall()
     if(len(patient_info) != 0):
@@ -38,8 +40,10 @@ def on_message(client, userdata, msg):
         patient_status = cur.fetchall()
         if(len(patient_status) < NUM_STATUS_PER_PATIENT):
             cur.execute(
-                "INSERT INTO patient_health_status (temperature, recorded_time, patient_id) VALUES (?, ?, ?)", [
+                "INSERT INTO patient_health_status (temperature, spO2, bpm, recorded_time, patient_id) VALUES (?, ?, ?, ?, ?)", [
                     recv_data['temperature'],
+                    recv_data['spO2'],
+                    recv_data['bpm'],
                     recv_data['recorded_time'],
                     recv_data['patient_id']
                 ]
@@ -49,8 +53,10 @@ def on_message(client, userdata, msg):
             cur.execute("SELECT MIN(recorded_time) FROM patient_health_status WHERE patient_id = ?", [patient_id])
             min_time = cur.fetchone()[0]
             cur.execute(
-                "UPDATE patient_health_status SET temperature = ?, recorded_time = ? WHERE patient_id = ? AND recorded_time = ?", [
+                "UPDATE patient_health_status SET temperature = ?, spO2 = ?, bpm = ?, recorded_time = ? WHERE patient_id = ? AND recorded_time = ?", [
                     recv_data['temperature'],
+                    recv_data['spO2'],
+                    recv_data['bpm'],
                     recv_data['recorded_time'],
                     patient_id,
                     min_time

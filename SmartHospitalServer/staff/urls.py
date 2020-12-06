@@ -12,4 +12,6 @@ urlpatterns = [
     re_path(r'^view_health_status/$', views.view_health_status, name = 'view_health_status'),
     re_path(r'^view_indiv_health_status/$', views.view_indiv_health_status, name = 'view_indiv_health_status'),
     re_path(r'^temperature_graph/$', views.temperature_graph_view, name = 'temperature_graph'),
+    re_path(r'^spO2_graph/$', views.spO2_graph_view, name = 'spO2_graph'),
+    re_path(r'^bpm_graph/$', views.bpm_graph_view, name = 'bpm_graph'),
 ]

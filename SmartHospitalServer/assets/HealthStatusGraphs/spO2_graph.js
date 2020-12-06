@@ -1,12 +1,12 @@
-var $temperatureGraph = $(".temperature_graph");
-var temperature_ctx = $temperatureGraph[0].getContext("2d");
+var $spO2Graph = $(".spO2_graph");
+var spO2_ctx = $spO2Graph[0].getContext("2d");
 
-var temperature_myChart = new Chart(temperature_ctx, {
+var spO2_myChart = new Chart(spO2_ctx, {
     type: 'line',
     data: {
         labels: ['', '', ''],
         datasets: [{
-            label: 'Temperature',
+            label: 'SpO2',
             data: [0, 0, 0],
             fill: false,
             borderWidth: 3,
@@ -26,14 +26,14 @@ var temperature_myChart = new Chart(temperature_ctx, {
         scales: {
             yAxes: [{
                 ticks: {
-                    min: 30,
-                    max: 40,
+                    min: 90,
+                    max: 110,
                     fontColor: 'white',
                     fontSize: 15
                 },
                 scaleLabel: {
                     display: true,
-                    labelString: 'Temperature (in Celcius)',
+                    labelString: 'SpO2 %',
                     fontSize: 20,
                     fontColor: 'white'
                 },
@@ -66,16 +66,16 @@ var temperature_myChart = new Chart(temperature_ctx, {
 
 setInterval(function () {
     $.ajax({
-        url: $temperatureGraph.data("url"),
+        url: $spO2Graph.data("url"),
         type: 'GET',
         data: {patient_id: document.getElementById('patient-id').value},
         success: function (data) {
-            temperature_myChart.data.datasets[0].data = data.temperatures;
-            temperature_myChart.data.labels = data.timeline;
-            temperature_myChart.options.scales.xAxes[0].scaleLabel.fontSize = data.axesLabelSize;
-            temperature_myChart.options.scales.xAxes[0].scaleLabel.labelString = data.axesLabel;
-            temperature_myChart.options.scales.xAxes[0].scaleLabel.fontColor = data.axesLabelColor;
-            temperature_myChart.update();
+            spO2_myChart.data.datasets[0].data = data.spO2s;
+            spO2_myChart.data.labels = data.timeline;
+            spO2_myChart.options.scales.xAxes[0].scaleLabel.fontSize = data.axesLabelSize;
+            spO2_myChart.options.scales.xAxes[0].scaleLabel.labelString = data.axesLabel;
+            spO2_myChart.options.scales.xAxes[0].scaleLabel.fontColor = data.axesLabelColor;
+            spO2_myChart.update();
         }
     });
 }, 5 * 1000);

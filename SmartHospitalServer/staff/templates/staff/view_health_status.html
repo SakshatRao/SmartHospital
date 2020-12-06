@@ -11,6 +11,8 @@
                 <th>Name</th>
                 <th>Room Number</th>
                 <th>Temperature</th>
+                <th>SpO2</th>
+                <th>BPM</th>
                 <th>Recorded Time</th>
                 <th>Details</th>
             </tr>
@@ -19,6 +21,8 @@
                     <td>{{ status.name }}</td>
                     <td>{{ status.room_number }}</td>
                     <td class='temp'>{{ status.temperature }}</td>
+                    <td class='spO2'>{{ status.spO2 }}</td>
+                    <td class='bpm'>{{ status.bpm }}</td>
                     <td>{{ status.recorded_time }}</td>
                     <td>
                         <form action="{% url 'staff:view_indiv_health_status' %}" method="POST">
@@ -31,6 +35,7 @@
                 </tr>
             {% endfor %}
         </table>
+        <meta http-equiv="refresh" content="15">
     </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

@@ -80,6 +80,8 @@ def view_health_status(request):
             health_status_dict['patient_id'] = patient.id
             health_status_dict['room_number'] = patient.room_number
             health_status_dict['temperature'] = health_status.temperature
+            health_status_dict['spO2'] = health_status.spO2
+            health_status_dict['bpm'] = health_status.bpm
             health_status_dict['recorded_time'] = health_status.recorded_time.replace(tzinfo = None)
             patients_health.append(health_status_dict)
     
@@ -119,6 +121,62 @@ def temperature_graph_view(request):
             timeline = [x if idx in labelled_x else '' for idx, x in enumerate(timeline)]
             return JsonResponse(data = {
                 'temperatures': temperatures,
+                'timeline': timeline,
+                'axesLabelSize': 12,
+                'axesLabel': '',
+                'axesLabelColor': 'black'
+            })
+
+@staff_access()
+def spO2_graph_view(request):
+    if(request.method == 'GET'):
+        patient_id = request.GET['patient_id']
+        health_status = Health_Status.objects.filter(patient_id = patient_id).order_by('recorded_time')
+        time_diff = datetime.now(tz = None) - health_status[len(health_status) - 1].recorded_time.replace(tzinfo = None)
+        if(time_diff.seconds > MAX_TIME_DIFF * 60):
+            return JsonResponse(data = {
+                'spO2s': [0, 0, 0],
+                'timeline': ['', '', ''],
+                'axesLabelSize': 25,
+                'axesLabel': 'Latest Data Not Available!',
+                'axesLabelColor': 'red'
+            })
+        else:
+            time_filter = [(datetime.now(tz = None) - x.recorded_time.replace(tzinfo = None)).seconds < MAX_TIME_DIFF * 60 for x in health_status]
+            spO2s = list(itertools.compress([x.spO2 for x in health_status], time_filter))
+            timeline = list(itertools.compress([x.recorded_time.strftime("%I:%M %p") for x in health_status], time_filter))
+            labelled_x = [0, len(timeline) - 1]
+            timeline = [x if idx in labelled_x else '' for idx, x in enumerate(timeline)]
+            return JsonResponse(data = {
+                'spO2s': spO2s,
+                'timeline': timeline,
+                'axesLabelSize': 12,
+                'axesLabel': '',
+                'axesLabelColor': 'black'
+            })
+
+@staff_access()
+def bpm_graph_view(request):
+    if(request.method == 'GET'):
+        patient_id = request.GET['patient_id']
+        health_status = Health_Status.objects.filter(patient_id = patient_id).order_by('recorded_time')
+        time_diff = datetime.now(tz = None) - health_status[len(health_status) - 1].recorded_time.replace(tzinfo = None)
+        if(time_diff.seconds > MAX_TIME_DIFF * 60):
+            return JsonResponse(data = {
+                'bpms': [0, 0, 0],
+                'timeline': ['', '', ''],
+                'axesLabelSize': 25,
+                'axesLabel': 'Latest Data Not Available!',
+                'axesLabelColor': 'red'
+            })
+        else:
+            time_filter = [(datetime.now(tz = None) - x.recorded_time.replace(tzinfo = None)).seconds < MAX_TIME_DIFF * 60 for x in health_status]
+            bpms = list(itertools.compress([x.bpm for x in health_status], time_filter))
+            timeline = list(itertools.compress([x.recorded_time.strftime("%I:%M %p") for x in health_status], time_filter))
+            labelled_x = [0, len(timeline) - 1]
+            timeline = [x if idx in labelled_x else '' for idx, x in enumerate(timeline)]
+            return JsonResponse(data = {
+                'bpms': bpms,
                 'timeline': timeline,
                 'axesLabelSize': 12,
                 'axesLabel': '',
