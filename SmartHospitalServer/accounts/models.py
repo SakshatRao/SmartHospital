@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from datetime import datetime
 
 # Create your models here.
+
+# Staff: Current staff users
 class Staff(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE, null = True)
     staff_email = models.EmailField(default = '', unique = True)
@@ -16,6 +18,7 @@ class Staff(models.Model):
     def __str__(self):
         return self.user.first_name + ' ' + self.user.last_name
 
+# Patient: Current patient users
 class Patient(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE, null = True)
     patient_email = models.EmailField(default = '', unique = True)
@@ -31,6 +34,7 @@ class Patient(models.Model):
     def __str__(self):
         return self.user.first_name + ' ' + self.user.last_name
 
+# All_Staff: All existing (active/inactive) staff users
 class All_Staff(models.Model):
     staff = models.OneToOneField(Staff, on_delete = models.SET_NULL, null = True)
     staff_name = models.CharField(max_length = 50, default = '')
@@ -39,6 +43,7 @@ class All_Staff(models.Model):
     def __str__(self):
         return self.staff_name
 
+# All_Patient: All existing (active/inactive) patient users
 class All_Patient(models.Model):
     patient = models.OneToOneField(Patient, on_delete = models.SET_NULL, null = True)
     patient_name = models.CharField(max_length = 50, default = '')

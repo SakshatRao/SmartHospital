@@ -1,5 +1,24 @@
 {% extends 'administration/administration_base_template.html' %}
 
+<!---
+    Administration Statistics Dashboard (requires admin login)
+    * Gender Ratio: Current male-to-female ratio
+        > Helps in tracking male-to-female ratio to check gender bias
+    * Monthly Billing: Average monthly billing of the hospital
+        > Helps in observing seasonality and thus predicting long-term patient traffic
+    * Daily Billing: Average day-of-week based billing
+        > Helps in observing weekly trends and thus predicting short-term patient traffic
+    * Admission & Discharge Rate: Number of patients admitted and discharged from the hospital
+        > Helps in tracking recent business and incoming and outgoing traffic
+    * Room Occupancy: Number of rooms currently occupied
+        > Helps in checking under-use or over-use of beds
+    * Age Histogram: Distribution of patient ages
+        > Helps in analyzing the patient population and which category of patients
+          (toddlers, young, old) are more likely to come
+    * Patient Geomap: Geographical city-wide distribution of patients
+        > Helps in analyzing from which parts of the city have the patients come which could
+          help in advertising or expansion of the hospital
+-->
 {% block content %}
     <h1>Hospital Statistics</h1>
     <div class='stats-view'>

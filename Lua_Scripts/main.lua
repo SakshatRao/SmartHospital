@@ -1,5 +1,6 @@
 -- Setting up MQTT client
-m = mqtt.Client(MQTT_CLIENTID, 60, "", "") -- Need to enable password
+-- TODO: Need to enable password
+m = mqtt.Client(MQTT_CLIENTID, 60, "", "")
 m:lwt("/lwt", "Last wish", 0, 0)
 
 -- When connection is established

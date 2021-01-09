@@ -10,11 +10,13 @@ from accounts.models import Patient, Staff, All_Patient, All_Staff
 from EHR.models import Bill_entry
 from plotly_graphs import administration_stats as stats
 
+# Admin Homepage (Requires admin login)
 @admin_access()
 def homepage_view(request):
     http_dict = http_dict_func(request)
     return render(request, 'administration/homepage.html', http_dict)
 
+# Administration Statistics (requires admin login)
 @admin_access()
 def stats_view(request):
     patient_db = Patient.objects.filter(is_validated = True)
@@ -33,6 +35,7 @@ def stats_view(request):
     http_dict = http_dict_func(request)
     return render(request, 'administration/stats.html', http_dict)
 
+# Validation of Staff (requires admin login)
 @admin_access()
 def validate_staff(request):
     if(request.method == 'POST'):
@@ -57,6 +60,7 @@ def validate_staff(request):
         http_dict['unvalid_staffs'] = unvalidated_staffs
         return render(request, 'administration/validate_staff.html', http_dict)
 
+# Removal of Staff (requires admin login)
 @admin_access()
 def remove_staff(request):
     if(request.method == 'POST'):

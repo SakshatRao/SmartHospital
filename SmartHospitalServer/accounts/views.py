@@ -10,7 +10,7 @@ from . import forms
 from .models import Staff, Patient, All_Staff, All_Patient
 from utils.access import http_dict_func, patient_access, staff_access
 
-# Create your views here.
+# Signup as Staff Page
 def signup_staff_view(request):
     if(request.method == 'POST'):
         user_form = forms.User_Form(request.POST)
@@ -44,6 +44,7 @@ def signup_staff_view(request):
     http_dict['staff_form'] = staff_form
     return render(request, 'accounts/signup_staff.html', http_dict)
 
+# Signup as Patient Page
 def signup_patient_view(request):
     if(request.method == 'POST'):
         user_form = forms.User_Form(request.POST)
@@ -80,6 +81,7 @@ def signup_patient_view(request):
     http_dict['patient_form'] = patient_form
     return render(request, 'accounts/signup_patient.html', http_dict)
 
+# Login Page
 def login_view(request):
     if(request.method == 'POST'):
         user_form = AuthenticationForm(data = request.POST)
@@ -103,12 +105,14 @@ def login_view(request):
     http_dict['user_form'] = user_form
     return render(request, 'accounts/login.html', http_dict)
 
+# Logout Page (Requires patient/staff login)
 @decorators.login_required(login_url = 'homepage')
 def logout_view(request):
     assert request.method == 'POST'
     logout(request)
     return redirect('homepage')
 
+# Edit Patient Details Page (Requires patient login)
 @patient_access()
 def edit_patient(request):
     if(request.method == 'POST'):
@@ -129,6 +133,7 @@ def edit_patient(request):
     http_dict['patient_form'] = patient_form
     return render(request, 'accounts/edit_patient.html', http_dict)
 
+# Edit Staff Details Page (Requires staff login)
 @staff_access()
 def edit_staff(request):
     if(request.method == 'POST'):

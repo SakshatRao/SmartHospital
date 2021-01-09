@@ -1,5 +1,11 @@
 # Uploading lua scripts to NodeMCU
 
+## Files present in folder
+1. Lua scripts (to be uploaded)
+2. luatool.py script (for upload)
+3. NodeMCU firmware
+
+## Steps
 1. (Optional) Ensure /dev/ttyUSB0 has user permissions
 
     ```python
