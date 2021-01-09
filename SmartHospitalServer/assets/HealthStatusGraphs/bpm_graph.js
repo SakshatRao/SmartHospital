@@ -1,3 +1,5 @@
+// Graphing BPM values
+
 var $bpmGraph = $(".bpm_graph");
 var bpm_ctx = $bpmGraph[0].getContext("2d");
 

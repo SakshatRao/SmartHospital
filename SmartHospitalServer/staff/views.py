@@ -11,13 +11,16 @@ import itertools
 import time
 import json
 
+# Maximum time difference for health status of a patient to be plotted (in minutes)
 MAX_TIME_DIFF = 10
 
+# Homepage for Staff (requires staff login)
 @staff_access()
 def homepage_view(request):
     http_dict = http_dict_func(request)
     return render(request, 'staff/homepage.html', http_dict)
 
+# Page for staff to validate patients (requires staff login)
 @staff_access()
 def validate_patient(request):
     if(request.method == 'POST'):
@@ -42,6 +45,7 @@ def validate_patient(request):
         http_dict['unvalid_patients'] = unvalidated_patients
         return render(request, 'staff/validate_patient.html', http_dict)
 
+# Page for staff to remove patients (requires staff login)
 @staff_access()
 def remove_patient(request):
     if(request.method == 'POST'):
@@ -66,6 +70,7 @@ def remove_patient(request):
         http_dict['valid_patients'] = validated_patients
         return render(request, 'staff/remove_patient.html', http_dict)
 
+# Page for staff to view every patient's health status (requires staff login)
 @staff_access()
 def view_health_status(request):
     patients = Patient.objects.all()
@@ -89,6 +94,7 @@ def view_health_status(request):
     http_dict['health_status'] = patients_health
     return render(request, 'staff/view_health_status.html', http_dict)
 
+# Page for staff to view a particular patient's health status (requires staff login)
 @staff_access()
 def view_indiv_health_status(request):
     if(request.method == 'POST'):
@@ -99,6 +105,7 @@ def view_indiv_health_status(request):
     http_dict['patient_id'] = patient_id
     return render(request, 'staff/indiv_health_status.html', http_dict)
 
+# To view patient's temperature graph (requires staff login)
 @staff_access()
 def temperature_graph_view(request):
     if(request.method == 'GET'):
@@ -127,6 +134,7 @@ def temperature_graph_view(request):
                 'axesLabelColor': 'black'
             })
 
+# To view patient's SpO2 graph (requires staff login)
 @staff_access()
 def spO2_graph_view(request):
     if(request.method == 'GET'):
@@ -155,6 +163,7 @@ def spO2_graph_view(request):
                 'axesLabelColor': 'black'
             })
 
+# To view patient's BPM graph (requires staff login)
 @staff_access()
 def bpm_graph_view(request):
     if(request.method == 'GET'):

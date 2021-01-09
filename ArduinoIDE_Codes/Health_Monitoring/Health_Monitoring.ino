@@ -21,14 +21,16 @@ SPO2 connections:
 MAX30205 tempSensor;
 PulseOximeter pox;
 
-int MEASURE_PERIOD = 100;
-int REPORT_PERIOD = 5000;
+int MEASURE_PERIOD = 100;                   // Time between measurements (in ms)
+int REPORT_PERIOD = 5000;                   // Time between sending the values to the NodeMCU
 
+// For average value of SpO2 and BPM
 uint8_t spO2_cnt = 0;
 uint8_t bpm_cnt = 0;
 float spO2 = 0;
 float bpm = 0;
 
+// For tracking last measurement and last report
 uint32_t lastReportTime = 0;
 uint32_t lastMeasureTime = 0;
 
@@ -55,6 +57,7 @@ void loop()
   uint32_t currentTime = millis();
   pox.update();
   
+  // Checking whether to measure
   if(currentTime - lastMeasureTime > MEASURE_PERIOD)
   {
     float spO2_val = (float)pox.getSpO2();
@@ -73,6 +76,7 @@ void loop()
     lastMeasureTime = currentTime;
   }
   
+  // Checking whether to report values to the NodeMCU
   if(currentTime - lastReportTime > REPORT_PERIOD)
   {
     float temp = tempSensor.getTemperature(); // read temperature for every 100ms

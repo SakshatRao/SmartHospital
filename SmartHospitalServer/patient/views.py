@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.core.exceptions import PermissionDenied
 
-from utils.access import patient_access, is_patient
+from utils.access import patient_access, http_dict_func
 from .models import Health_Status
 
 import numpy as np
@@ -10,23 +10,23 @@ from datetime import datetime, timezone
 import time
 import itertools
 
-# Maximum time difference allowed (in minutes)
+# Maximum time difference allowed for showing health status graphs (in minutes)
 MAX_TIME_DIFF = 10
 
-def http_dict_func(request):
-    return {'is_patient': is_patient(request)}
-
+# Homepage for patients (requires patient login)
 @patient_access()
 def homepage_view(request):
     http_dict = http_dict_func(request)
     return render(request, 'patient/homepage.html', http_dict)
 
+# For viewing health status graphs (requires patient login)
 @patient_access()
 def health_status_view(request):
     http_dict = http_dict_func(request)
     http_dict['patient_id'] = request.user.patient.id
     return render(request, 'patient/patient_health_status.html', http_dict)
 
+# For accessing temperature values (requires patient login)
 @patient_access()
 def temperature_graph_view(request):
     if(request.method == 'GET'):
@@ -55,6 +55,7 @@ def temperature_graph_view(request):
                 'axesLabelColor': 'black'
             })
 
+# For accessing SpO2 values (requires patient login)
 @patient_access()
 def spO2_graph_view(request):
     if(request.method == 'GET'):
@@ -83,6 +84,7 @@ def spO2_graph_view(request):
                 'axesLabelColor': 'black'
             })
 
+# For accessing BPM values (requires patient login)
 @patient_access()
 def bpm_graph_view(request):
     if(request.method == 'GET'):

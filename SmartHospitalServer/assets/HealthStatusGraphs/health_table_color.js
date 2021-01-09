@@ -1,3 +1,5 @@
+// Setting thresholds for temperature, SpO2 & BPM values for alerts
+
 $(function() {
     $('tr > td.temp').each(function(index) {
         var scale = [['low', 35], ['medium', 38], ['high', 45]];

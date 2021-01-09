@@ -1,6 +1,12 @@
 from django import forms
 from . import models
 
+# Database schema for EHR
+#   1. Prescription
+#   2. Bill
+#   3. Medical History
+# TODO: Add urine & stool recordings
+
 class Prescription_entry_Form(forms.ModelForm):
     class Meta:
         model = models.Prescription_entry

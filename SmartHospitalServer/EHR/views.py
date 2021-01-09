@@ -5,6 +5,8 @@ from .models import Prescription_entry, Bill_entry, MedHistory_entry
 from utils.access import patient_access, staff_access, http_dict_func
 
 # Create your views here.
+
+# Page to add EHR entry (requires staff login)
 @staff_access()
 def add_entry_view(request):
     if(request.method == 'POST'):
@@ -51,6 +53,7 @@ def add_entry_view(request):
     http_dict['medhist_form'] = medhist_form
     return render(request, 'ehr/add_entry.html', http_dict)
 
+# Page to view EHR contents (requires patient login)
 @patient_access()
 def view_ehr_view(request):
     presc_entries = list(request.user.patient.all_patient.prescription_entry_set.all().order_by('-date', 'medication'))

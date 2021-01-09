@@ -1,3 +1,5 @@
+// Graphing temperature values
+
 var $temperatureGraph = $(".temperature_graph");
 var temperature_ctx = $temperatureGraph[0].getContext("2d");
 

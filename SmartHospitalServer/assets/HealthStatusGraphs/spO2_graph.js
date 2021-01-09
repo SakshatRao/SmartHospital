@@ -1,3 +1,5 @@
+// Graphing SpO2 values
+
 var $spO2Graph = $(".spO2_graph");
 var spO2_ctx = $spO2Graph[0].getContext("2d");
 

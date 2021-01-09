@@ -4,15 +4,17 @@ int led_buzzer_pin = 7;
 int pushbutton_pin = 6;
 
 // Global Variables
-int loop_delay = 75;
+int loop_delay = 75;                                                        // Refresh period (in ms)
+int detected;                                                               // To check whether door motion has been detected
+bool alerted;                                                               // To check whether incomer has been alerted
+int alert_sec = 5;                                                          // Alert time (in s)
+int alert_time_cnt = alert_sec * 1000 / loop_delay;                         // Number of ticks for alert
 
-int detected;
-bool alerted;
-int alert_sec = 5;
-int alert_time_cnt = alert_sec * 1000 / loop_delay;
-
+// For exponential smoothing
 float a = 0.5;
 float s = 0;
+
+// For calibration
 int settle_sec = 5;
 int calibrate_sec = 1;
 int settle_time_cnt = settle_sec * 1000 / loop_delay;
@@ -20,6 +22,16 @@ int calibrate_time_cnt = calibrate_sec * 1000 / loop_delay;
 float extr1, extr2;
 float thresh;
 
+/*
+  Calibration Steps:
+    1. Settle time
+    2. Measuring one extreme value
+    3. Light blink
+    4. Settle time
+    5. Measuring second extreme value
+    6. Light blink
+    7. Final light blink
+*/
 void calibrate() {
   float s_avg = 0;
 
@@ -77,14 +89,11 @@ void calibrate() {
   digitalWrite(led_buzzer_pin, LOW);
 }
 
+// Setting up GPIOs, initializing flags & performing calibration
 void setup() {
   pinMode(pushbutton_pin, INPUT);
   pinMode(IR_recv_pin, INPUT);
   pinMode(led_buzzer_pin, OUTPUT);
-  
-  ///*
-  Serial.begin(9600);
-  //*/
 
   detected = 0;
   alerted = false;
@@ -93,19 +102,15 @@ void setup() {
 }
 
 void loop() {
+  // Measuring analog value
   int ir_val = analogRead(IR_recv_pin);
   s = a * ir_val + (1 - a) * s;
-
-  ///*
-  Serial.print(s);
-  Serial.print("\t");
-  Serial.print(thresh);
-  Serial.print("\t");
-  Serial.print(extr1);
-  Serial.print("\t");
-  Serial.println(extr2);
-  //*/
   
+  /*
+    Alerting Algorithm:
+    1. If door motion is detected, start alerting; else do nothing
+    2. Keep alerting till either pushbutton is pressed or time-out occurs
+  */
   if(detected == 0)
   {
     if(s > thresh)

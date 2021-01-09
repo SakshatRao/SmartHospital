@@ -1,3 +1,5 @@
+// Automating usernames and age to be filled in forms
+
 const first_name_text = document.querySelector('input[name=first_name]');
 const last_name_text = document.querySelector('input[name=last_name]');
 const username_text = document.querySelector('input[name=username]');

@@ -26,6 +26,7 @@ ward_map = {
     '400103': 'R/C', '400104': 'P/S'
 }
 
+# To find room occupancy percentage
 def room_occupancy(patient_db):
     print("Room Occupancy")
     avail_rooms = np.arange(1, 51)
@@ -53,6 +54,7 @@ def room_occupancy(patient_db):
     fig = go.Figure(data = data, layout = layout)
     pyo.plot(fig, filename = './assets/PlotlyGraphs/room_occupancy.html', auto_open = False, output_type = 'file', include_plotlyjs = True)
 
+# To find total billing for each month
 def monthly_billing(bill_db):
     bill_df = pd.DataFrame(bill_db.values('date', 'charge'))
     bill_df['month'] = bill_df['date'].apply(lambda x: x.month)
@@ -101,6 +103,7 @@ def monthly_billing(bill_db):
     fig = go.Figure(data = data, layout = layout)
     pyo.plot(fig, filename = './assets/PlotlyGraphs/monthly_billing.html', auto_open = False, output_type = 'file', include_plotlyjs = True)
 
+# To find male-to-female ratio of staff
 def gender_ratio(staff_db):
     staff_df = pd.DataFrame(staff_db.values('id', 'occupation', 'gender'))
     staff_df['occupation'] = staff_df['occupation'].replace({'D': 'Doctors', 'N': 'Nurses'})
@@ -138,6 +141,7 @@ def gender_ratio(staff_db):
     fig = go.Figure(data = data, layout = layout)
     pyo.plot(fig, filename = './assets/PlotlyGraphs/gender_ratio.html', auto_open = False, output_type = 'file', include_plotlyjs = True)
 
+# To find average billing of hospital for each day of week
 def daily_billing(bill_db):
     bill_df = pd.DataFrame(bill_db.values('charge', 'date'))
     bill_df['charge'] = bill_df['charge'].astype('float32')
@@ -167,6 +171,7 @@ def daily_billing(bill_db):
     fig = go.Figure(data = data, layout = layout)
     pyo.plot(fig, filename = './assets/PlotlyGraphs/daily_billing.html', auto_open = False, output_type = 'file', include_plotlyjs = True)
 
+# To find geographical ward-wise distribution of patients
 def patient_geomap(patient_db):
     patient_df = pd.DataFrame(patient_db.values('id', 'pin_code'))
 
@@ -195,6 +200,7 @@ def patient_geomap(patient_db):
     ))
     pyo.plot(fig, filename = './assets/PlotlyGraphs/patient_geomap.html', auto_open = False, output_type = 'file', include_plotlyjs = True)
 
+# To find distribution in patient age
 def age_histogram(patient_db):
     patient_df = pd.DataFrame(patient_db.values('age', 'gender'))
     data = [
@@ -222,6 +228,7 @@ def age_histogram(patient_db):
     fig = go.Figure(data = data, layout = layout)
     pyo.plot(fig, filename = './assets/PlotlyGraphs/age_histogram.html', auto_open = False, output_type = 'file', include_plotlyjs = True)
 
+# To find admission and discharge rates for the last 30 days
 def admission_discharge_rate(all_patient_db):
     patient_df = pd.DataFrame(all_patient_db.values("id", 'admission_date', 'discharge_date'))
     patient_df['admission_date'] = patient_df['admission_date'].astype('datetime64')
