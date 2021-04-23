@@ -15,6 +15,7 @@ SPO2 connections:
 */
 
 #include <Wire.h>
+
 #include "Protocentral_MAX30205.h"
 #include "MAX30100_PulseOximeter.h"
 
@@ -29,6 +30,7 @@ uint8_t spO2_cnt = 0;
 uint8_t bpm_cnt = 0;
 float spO2 = 0;
 float bpm = 0;
+float temp = 0;
 
 // For tracking last measurement and last report
 uint32_t lastReportTime = 0;
@@ -38,11 +40,11 @@ uint32_t lastMeasureTime = 0;
 SoftwareSerial sw(2, 3);
 
 void setup()
-{
+{ 
   Wire.begin();
   sw.begin(115200);
   //Serial.begin(9600);
-
+  
   while(!tempSensor.scanAvailableSensors())
     delay(MEASURE_PERIOD);
   tempSensor.begin();
@@ -79,7 +81,7 @@ void loop()
   // Checking whether to report values to the NodeMCU
   if(currentTime - lastReportTime > REPORT_PERIOD)
   {
-    float temp = tempSensor.getTemperature(); // read temperature for every 100ms
+    temp = tempSensor.getTemperature(); // read temperature for every 100ms
     
     if(spO2_cnt == 0)
       spO2 = 0;

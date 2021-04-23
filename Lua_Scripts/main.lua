@@ -17,7 +17,7 @@ end)
 -- Setting up UART communication with Arduino
 uart.setup(0, 115200, 8, 0, 1)
 uart.on("data", '\r', function(data)
-    m:publish("/mcu/status", tostring(ROOM_NUMBER) .. '_' .. tostring(data), 0, 0, function(m)
+    m:publish(MQTT_TOPIC, tostring(ROOM_NUMBER) .. '_' .. tostring(data), 0, 0, function(m)
         print("Sent data - " .. tostring(data))
     end)
 end, 0)
